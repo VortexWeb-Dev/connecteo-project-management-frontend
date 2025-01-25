@@ -23,7 +23,6 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
@@ -56,26 +55,34 @@ export function AppSidebar() {
   //   const { t, i18n } = useTranslation();
   const { state } = useSidebar();
 
+  const getCurrentYear = () => new Date().getFullYear();
+
   //   const changeLanguage = (lng: string) => {
   //     i18n.changeLanguage(lng);
   //   };
 
   return (
-    <Sidebar className="border-r border-grey-700 bg-grey-900">
+    <Sidebar
+      collapsible="icon"
+      className="border-r border-grey-700 bg-grey-900"
+    >
       <SidebarHeader className="bg-grey-800 p-4">
-        <h1 className="text-4xl font-bold text-grey-100">
-          Connecteo
+        <h1 className="text-4xl font-bold text-grey-100 text-center">
+          <span className="hidden group-data-[collapsible=icon]:inline text-2xl">
+            C
+          </span>
+          <span className="group-data-[collapsible=icon]:hidden">
+            Connecteo
+          </span>
           <br />
-          <span className="text-sm font-normal text-grey-400">
+          <span className="text-sm font-normal text-grey-400 group-data-[collapsible=icon]:hidden">
             Project Management App
           </span>
         </h1>
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-grey-400">
-            Application
-          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
@@ -105,7 +112,11 @@ export function AppSidebar() {
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="w-full bg-grey-900 text-grey-300 border-grey-600 hover:bg-grey-700 hover:text-grey-100 border-none"
+              className={`w-full text-grey-300 border-grey-600 hover:text-grey-100 ${
+                state === "collapsed"
+                  ? "bg-transparent hover:bg-transparent border-none"
+                  : "bg-grey-900 hover:bg-grey-700  border-none"
+              }`}
             >
               <Languages className="mr-2 h-5 w-5" />
               <span className={state === "collapsed" ? "hidden" : ""}>
@@ -118,6 +129,19 @@ export function AppSidebar() {
             <DropdownMenuItem onClick={() => {}}>English</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+
+        <div className="text-xs text-grey-400 mt-2 text-center group-data-[collapsible=icon]:hidden">
+          &copy; {getCurrentYear()}{" "}
+          <Link
+            href="https://vortexweb.cloud/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-grey-300 hover:underline"
+          >
+            Vortex Web
+          </Link>
+          .
+        </div>
       </div>
     </Sidebar>
   );

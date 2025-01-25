@@ -6,7 +6,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Project Management App",
+  title: "Connecteo Project Management App",
   description: "An enterprise-friendly project management application",
 };
 
